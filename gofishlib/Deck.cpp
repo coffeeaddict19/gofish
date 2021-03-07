@@ -1,15 +1,11 @@
 #include "Deck.h"
 
 Deck::Deck(Logger* Logger) : Logger_(Logger){
-  CardIndex_ = 0;
+  Pool_ = std::make_unique<CardPool>();
 }
 
 CardPtrType Deck::Draw(){
-  if(CardIndex_ < kNumberOfCardsInDeck){
-    unsigned char CurrentCardIndex = CardIndex_;
-    CardIndex_+=1;
-    return std::move(BaseCardPool::Pool_[CurrentCardIndex]);
-  }else{
-    return CardPtrType(nullptr);
-  }
+  CardPtrType CardPtr(nullptr);
+  //todo draw
+  return CardPtr;
 }

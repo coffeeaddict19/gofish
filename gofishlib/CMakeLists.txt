@@ -7,5 +7,5 @@ Card.cpp
 Player.cpp
 Deck.cpp
 Books.cpp
-BaseCardPool.cpp
+CardPool.cpp
 )

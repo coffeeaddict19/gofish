@@ -1,9 +1,10 @@
-#include "BaseCardPool.h"
+#include "CardPool.h"
 
-BaseCardPool::BaseCardPool(){
+CardPool::CardPool(){
+
 }
 
-BaseCardPool::~BaseCardPool(){
+CardPool::~CardPool(){
   for(auto& Card : Pool_){
     if(Card){
       Card.reset();
@@ -11,7 +12,7 @@ BaseCardPool::~BaseCardPool(){
   }
 }
 
-bool BaseCardPool::IsFull(){
+bool CardPool::IsFull(){
   bool OneCardNotInPool = false;
   for(const auto& Card : Pool_){
     if(Card){
@@ -22,7 +23,7 @@ bool BaseCardPool::IsFull(){
   return !OneCardNotInPool;
 }
 
-bool BaseCardPool::IsEmpty(){
+bool CardPool::IsEmpty(){
   bool AtLeastOneCardInPool = false;
   for(const auto& Card : Pool_){
     if(!Card){
@@ -31,4 +32,13 @@ bool BaseCardPool::IsEmpty(){
     }
   }
   return !AtLeastOneCardInPool;
+}
+
+void CardPool::Insert(CardPtrType CardToInsert){
+  Card CardIndex = *CardToInsert.get();
+  Pool_.at(CardIndex) = std::move(CardToInsert);
+}
+
+CardPtrType CardPool::Remove(Card CardToRemove){
+  return std::move(Pool_.at(CardToRemove));
 }

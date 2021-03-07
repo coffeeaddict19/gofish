@@ -1,9 +1,9 @@
 #ifndef IDECK_H
 #define IDECK_H
 
-#include "BaseCardPool.h"
+#include "CppCommon.h"
 
-class IDeck : protected BaseCardPool{
+class IDeck{
 public:
   virtual CardPtrType Draw() = 0;
 };

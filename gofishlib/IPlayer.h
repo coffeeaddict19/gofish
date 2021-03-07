@@ -2,14 +2,13 @@
 #define IPLAYER_H
 
 #include <stack>
-#include "BaseCardPool.h"
-#include "Card.h"
+#include "CppCommon.h"
 
-class IPlayer : protected BaseCardPool{
+class IPlayer{
 public:
   virtual ~IPlayer();
   virtual CardCollection GetCopyOfCards() = 0;
-  virtual bool TakeCardFromDeck(CardPtrType Card) = 0;
+  virtual bool TakeCardFromDeck() = 0;
   virtual std::stack<CardPtrType> GiveCardsToOtherPlayer(Card Card) = 0;
 };
 

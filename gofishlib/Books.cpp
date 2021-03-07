@@ -1,7 +1,8 @@
 #include "Books.h"
 #include <assert.h>
 
-Books::Books(ILogger* Logger) : Logger_(Logger){
+Books::Books(Logger* Logger) : Logger_(Logger){
+  Pool_ = std::make_unique<CardPool>();
   for(auto& Count: NumberOfBooksPerPlayer_){
     Count = 0;
   }
@@ -10,9 +11,7 @@ Books::Books(ILogger* Logger) : Logger_(Logger){
 void Books::TransferBook(std::array<CardPtrType, kNumberOfCardsInBook> Book, ePlayers OwningPlayer){
   for(auto& CardFromBook: Book){
     assert(CardFromBook);
-    unsigned char CardValue = *CardFromBook.get();
-    //the CardValue is the same as the index in the pool
-    BaseCardPool::Pool_.at(CardValue) = std::move(CardFromBook);
+    Pool_.get()->Insert(std::move(CardFromBook));
   }
   IncreasePlayerBookCount(OwningPlayer);
 }
@@ -22,7 +21,7 @@ unsigned char Books::GetNumberOfBooksPlayerHas(ePlayers Player){
 }
 
 bool Books::AllBooksAreFilled(){
-  return BaseCardPool::IsFull();
+  return Pool_.get()->IsFull();
 }
 
 ePlayers Books::GetPlayerWithMostBooks(){

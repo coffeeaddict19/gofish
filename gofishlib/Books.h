@@ -3,12 +3,14 @@
 
 #include "IBooks.h"
 #include "CCommon.h"
-#include "ILogger.h"
+#include "Logger.h"
+#include "CardPool.h"
 #include <array>
+#include <memory>
 
 class Books : public IBooks{
 public:
-  Books(ILogger* Logger);
+  Books(Logger* Logger);
   void TransferBook(std::array<CardPtrType, kNumberOfCardsInBook> Book, ePlayers OwningPlayer);
   unsigned char GetNumberOfBooksPlayerHas(ePlayers Player);
   bool AllBooksAreFilled();
@@ -16,7 +18,8 @@ public:
 private:
   void IncreasePlayerBookCount(ePlayers Player);
   std::array<unsigned char, kNumberOfPlayers> NumberOfBooksPerPlayer_;
-  ILogger* Logger_;
+  Logger* Logger_;
+  std::unique_ptr<CardPool> Pool_;
 };
 
 

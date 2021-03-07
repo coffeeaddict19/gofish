@@ -19,7 +19,10 @@ Context NewContext(){
   Context.PlayHumanTurn = PlayHumanTurn;
   Context.GetHumanCards = GetHumanCards;
   Context.PlayAITurn = PlayAITurn;
-  Context.GamePtr_ = new Game(Context.Logger_, std::shared_ptr<IDeck>(new Deck(Context.Logger_)));
+  Context.GamePtr_ = new Game(
+    Context.Logger_,
+    std::shared_ptr<IDeck>(new Deck(Context.Logger_))
+  );
   return Context;
 }
 

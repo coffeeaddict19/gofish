@@ -15,6 +15,7 @@ public:
   ~Game();
 private:
   std::shared_ptr<IDeck> Deck_;
+  std::shared_ptr<IBooks> Books_;
   std::array<Player, kNumberOfPlayers> Players_;
 };
 
