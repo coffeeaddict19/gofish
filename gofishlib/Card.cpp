@@ -1,5 +1,6 @@
 #include "Card.h"
 #include <vector>
+#include <new>
 
 void Destroy(CardCollection* PtrToCardCollection);
 CardWithInitFlag At(CardCollection* PtrToCardCollection, unsigned char Index);
@@ -10,11 +11,10 @@ using CardCollectionInternalType = std::vector<Card>;
 
 CardCollection NewCardCollection(){
   CardCollection Collection;
-  Collection.CardCollection_ = nullptr;
   Collection.At = At;
   Collection.Destroy = Destroy;
   Collection.Size = Size;
-  Collection.CardCollection_ = new CardCollectionInternalType();
+  Collection.CardCollection_ = new(std::nothrow) CardCollectionInternalType();
   Collection.Push = Push;
   return Collection;
 }

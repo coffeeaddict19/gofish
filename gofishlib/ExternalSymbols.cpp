@@ -3,13 +3,14 @@
 #include "Game.h"
 #include "Deck.h"
 #include <memory>
+#include <new>
 
 //Console Logger
 void DestroyConsoleLogger(Logger* PtrToLogger);
 
 Logger NewConsoleLogger(){
   Logger NewLogger;
-  NewLogger.LoggerPtr_ = new ConsoleLogger();
+  NewLogger.LoggerPtr_ = new(std::nothrow) ConsoleLogger();
   NewLogger.Destroy = DestroyConsoleLogger;
   return NewLogger;
 }
@@ -32,9 +33,9 @@ Context NewContext(){
   Context.Logger_ = nullptr;
   Context.Play = Play;
   Context.SetLogger = SetLoggerToContext;
-  Context.GamePtr_ = new Game(
+  Context.GamePtr_ = new(std::nothrow) Game(
     Context.Logger_,
-    std::shared_ptr<IDeck>(new Deck(Context.Logger_))
+    std::shared_ptr<IDeck>(new(std::nothrow) Deck(Context.Logger_))
   );
   return Context;
 }
