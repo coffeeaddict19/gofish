@@ -4,25 +4,27 @@
 enum eErrors{
     NoError = 0,
     AllocationFail = 1,
-    IsHumanPlayersTurn = 2,
-    InvalidArg = 3,
-    GameIsAlreadyOver = 4,
-    NotImplemented = 5,
-    IsAIPlayersTurn = 6
+    InvalidArg = 2,
+    GameIsAlreadyOver = 3,
+    NotImplemented = 4
+};
+
+enum eTurnResult{
+  Win = 0,
+  Lose = 1,
+  GoFishReturnedCardsYouGetAnotherTurn = 2,
+  GoFishReturnedNoCardsYourTurnIsOver = 3
 };
 
 const unsigned char kNumberOfPlayers = 5;
+const unsigned char kNumberOfCardsInDeck = 52;
+const unsigned char kNumberOfCardsInBook = 4;
 enum ePlayers{
-  Human = 0,
+  John = 0,
   Dan = 1,
   Judy = 2,
   Danielle = 3,
   Nicholas = 4
-};
-
-enum ePlayer{
-    Interactive = 0,
-    AI = 1
 };
 
 enum eCard{
@@ -48,11 +50,51 @@ enum eSuit{
   Spades = 3
 };
 
-//struct Card{
-//  unsigned char CardType_;
-//  unsigned char SuitType_;
-//};
-
 typedef unsigned char Card;
+
+struct CardWithInitFlag{
+  Card Card_;
+  bool Initialized_;
+};
+
+typedef void* CardCollectionVoidPtr;
+
+struct CardCollection{
+  CardCollectionVoidPtr CardCollection_;
+  void (*Destroy)(CardCollection* PtrToCardCollection);
+  unsigned char (*Size)(CardCollection* PtrToCardCollection);
+  CardWithInitFlag (*At)(CardCollection* PtrToCardCollection, unsigned char Index);
+  void (*Push)(CardCollection* PtrToCardCollection, Card C);
+};
+
+typedef void* GamePtr;
+
+struct PlayerInput{
+  Card RequestedCard_;
+  ePlayers PlayerToRequestCardOf_;
+};
+
+struct PlayerOutput{
+  eTurnResult TurnResult_;
+  eErrors Error_;
+  ePlayers PlayerGoFishCardsWereReceivedFrom_;
+  CardCollection CopyOfGoFishCardsReceived_;
+  CardCollection CopyOfCards_;
+};
+
+typedef void* LoggerPtr;
+
+struct Logger{
+    LoggerPtr LoggerPtr_;
+    void (*Destroy)(Logger* PtrToLogger);
+};
+
+struct Context{
+  GamePtr GamePtr_;
+  Logger* Logger_;
+  void (*SetLogger)(Context* PtrToContext, Logger* PtrToLogger);
+  void (*Destroy)(Context* PtrToContext);
+  PlayerOutput (*Play)(Context* PtrToContext, PlayerInput* Inputs);
+};
 
 #endif

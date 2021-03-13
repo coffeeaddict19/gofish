@@ -1,7 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Logger.h"
 #include "Player.h"
 #include "Deck.h"
 #include "Books.h"
@@ -13,6 +12,7 @@ class Game{
 public:
   Game(Logger* Logger, std::shared_ptr<IDeck> Deck);
   ~Game();
+  PlayerOutput Play(PlayerInput* Inputs);
 private:
   std::shared_ptr<IDeck> Deck_;
   std::shared_ptr<IBooks> Books_;

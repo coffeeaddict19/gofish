@@ -3,7 +3,6 @@
 
 #include "IBooks.h"
 #include "CCommon.h"
-#include "Logger.h"
 #include "CardPool.h"
 #include <array>
 #include <memory>

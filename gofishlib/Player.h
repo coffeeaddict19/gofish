@@ -4,7 +4,6 @@
 #include "IPlayer.h"
 #include "IDeck.h"
 #include "IBooks.h"
-#include "Logger.h"
 #include "CardPool.h"
 #include <memory>
 

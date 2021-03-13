@@ -3,6 +3,7 @@
 
 #include <stack>
 #include "CppCommon.h"
+#include "Card.h"
 
 class IPlayer{
 public:

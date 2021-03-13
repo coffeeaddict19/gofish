@@ -1,4 +1,3 @@
-#include "ExternalSymbols.h"
 #include "Card.h"
 #include <vector>
 

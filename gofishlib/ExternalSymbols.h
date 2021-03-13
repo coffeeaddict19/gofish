@@ -1,8 +1,7 @@
 #ifndef EXTERNALSYMBOLS_H
 #define EXTERNALSYMBOLS_H
 
-#include "Context.h"
-#include "Logger.h"
+#include "CCommon.h"
 
 #ifdef __cplusplus
 extern "C" {

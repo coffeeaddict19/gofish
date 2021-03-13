@@ -1,8 +1,7 @@
 add_library (gofishlib SHARED
+ExternalSymbols.cpp
 Game.cpp
 ConsoleLogger.cpp
-Context.cpp
-Logger.cpp
 Card.cpp
 Player.cpp
 Deck.cpp

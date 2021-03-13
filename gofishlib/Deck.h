@@ -1,7 +1,6 @@
 #ifndef DECK_H
 #define DECK_H
 
-#include "Logger.h"
 #include "IDeck.h"
 #include "CardPool.h"
 #include <memory>
