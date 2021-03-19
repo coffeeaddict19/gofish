@@ -1,4 +1,5 @@
 #include "Card.h"
+#include "CppCommon.h"
 #include <vector>
 #include <new>
 
@@ -6,8 +7,6 @@ void Destroy(CardCollection* PtrToCardCollection);
 CardWithInitFlag At(CardCollection* PtrToCardCollection, unsigned char Index);
 unsigned char Size(CardCollection* PtrToCardCollection);
 void Push(CardCollection* PtrToCardCollection, Card C);
-
-using CardCollectionInternalType = std::vector<Card>;
 
 CardCollection NewCardCollection(){
   CardCollection Collection;

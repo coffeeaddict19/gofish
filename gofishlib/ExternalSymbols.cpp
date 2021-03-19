@@ -2,7 +2,9 @@
 #include "ConsoleLogger.h"
 #include "Game.h"
 #include "Deck.h"
+#include "Card.h"
 #include <memory>
+#include <array>
 #include <new>
 
 //Console Logger
@@ -26,16 +28,18 @@ void DestroyConsoleLogger(Logger* PtrToLogger){
 void DestroyContext(Context* PtrToContext);
 void SetLoggerToContext(Context* PtrToContext, Logger* PtrToLogger);
 PlayerOutput Play(Context* PtrToContext, PlayerInput* Inputs);
+CardCollection GetPlayersCopyOfCards(Context* PtrToContext, ePlayers Player);
 
-Context NewContext(){
+Context NewContext(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck]){
   Context Context;
   Context.Destroy = DestroyContext;
   Context.Logger_ = nullptr;
   Context.Play = Play;
+  Context.GetPlayersCopyOfCards = GetPlayersCopyOfCards;
   Context.SetLogger = SetLoggerToContext;
   Context.GamePtr_ = new(std::nothrow) Game(
     Context.Logger_,
-    std::shared_ptr<IDeck>(new(std::nothrow) Deck(Context.Logger_))
+    OrderOfCardsInDeck
   );
   return Context;
 }
@@ -60,4 +64,12 @@ PlayerOutput Play(Context* PtrToContext, PlayerInput* Inputs){
   }
 
   return reinterpret_cast<Game*>(PtrToContext)->Play(Inputs);
+}
+
+CardCollection GetPlayersCopyOfCards(Context* PtrToContext, ePlayers Player){
+  if(nullptr == PtrToContext){
+    return NewCardCollection();
+  }
+
+  return reinterpret_cast<Game*>(PtrToContext)->GetPlayersCopyOfCards(Player);
 }

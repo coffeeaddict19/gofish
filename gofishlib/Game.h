@@ -10,9 +10,10 @@
 
 class Game{
 public:
-  Game(Logger* Logger, std::shared_ptr<IDeck> Deck);
+  Game(Logger* Logger, Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck]);
   ~Game();
   PlayerOutput Play(PlayerInput* Inputs);
+  CardCollection GetPlayersCopyOfCards(ePlayers Player);
 private:
   std::shared_ptr<IDeck> Deck_;
   std::shared_ptr<IBooks> Books_;

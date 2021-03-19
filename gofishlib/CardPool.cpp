@@ -1,4 +1,5 @@
 #include "CardPool.h"
+#include <assert.h>
 
 CardPool::CardPool(){
 
@@ -40,5 +41,20 @@ void CardPool::Insert(CardPtrType CardToInsert){
 }
 
 CardPtrType CardPool::Remove(Card CardToRemove){
-  return std::move(Pool_.at(CardToRemove));
+  if(CardToRemove < Pool_.size()){
+    return std::move(Pool_.at(CardToRemove));
+  }else{
+    return CardPtrType(nullptr);
+  }
+}
+
+void CardPool::MakeCopy(CardCollectionInternalType* PtrToCollectionToPushTo) const{
+  assert(PtrToCollectionToPushTo != nullptr);
+  if(PtrToCollectionToPushTo != nullptr){
+    for(const auto& PtrInPool : Pool_){
+      if(PtrInPool){
+        PtrToCollectionToPushTo->push_back(*PtrInPool.get());
+      }
+    }
+  }
 }

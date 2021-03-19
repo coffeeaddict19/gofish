@@ -12,6 +12,7 @@ public:
   bool IsEmpty();
   void Insert(CardPtrType CardToInsert);
   CardPtrType Remove(Card CardToRemove);
+  void MakeCopy(CardCollectionInternalType* PtrToCollectionToPushTo) const;
 private:
   PoolOfCardsType Pool_;
 };

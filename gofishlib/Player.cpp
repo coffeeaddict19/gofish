@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <assert.h>
 
 Player::Player(
   Logger* Logger,
@@ -22,6 +23,15 @@ Player::Player(Player&& MovedPlayer){
 
 CardCollection Player::GetCopyOfCards(){
   CardCollection Collection = NewCardCollection();
+  if(Collection.CardCollection_ != nullptr){
+    CardCollectionInternalType* PtrToCollection = reinterpret_cast<CardCollectionInternalType*>(
+      Collection.CardCollection_
+    );
+    assert(Pool_);
+    if(Pool_){
+      Pool_.get()->MakeCopy(PtrToCollection);
+    }
+  }
   return Collection;
 }
 

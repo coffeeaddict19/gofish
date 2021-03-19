@@ -71,12 +71,14 @@ typedef void* GamePtr;
 
 struct PlayerInput{
   Card RequestedCard_;
+  ePlayers ThisPlayer_;
   ePlayers PlayerToRequestCardOf_;
 };
 
 struct PlayerOutput{
   eTurnResult TurnResult_;
   eErrors Error_;
+  ePlayers NextPlayer_;
   ePlayers PlayerGoFishCardsWereReceivedFrom_;
   CardCollection CopyOfGoFishCardsReceived_;
   CardCollection CopyOfCards_;
@@ -95,6 +97,7 @@ struct Context{
   void (*SetLogger)(Context* PtrToContext, Logger* PtrToLogger);
   void (*Destroy)(Context* PtrToContext);
   PlayerOutput (*Play)(Context* PtrToContext, PlayerInput* Inputs);
+  CardCollection (*GetPlayersCopyOfCards)(Context* PtrToContext, ePlayers Player);
 };
 
 #endif
