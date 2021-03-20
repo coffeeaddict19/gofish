@@ -4,7 +4,12 @@
 #include <new>
 #include <assert.h>
 
-Game::Game(Logger* Logger, Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck]) :
+Game::Game(
+  Logger* Logger,
+  Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck],
+  ePlayers FirstPlayer
+) :
+Logger_(Logger),
 Deck_(new(std::nothrow) Deck(Logger, OrderOfCardsInDeck)),
 Books_(new(std::nothrow) Books(Logger)),
 Players_{{
@@ -13,7 +18,9 @@ Players_{{
   Player(Logger, Deck_, Books_, Judy),
   Player(Logger, Deck_, Books_, Danielle),
   Player(Logger, Deck_, Books_, Nicholas)
-}} {
+}},
+FirstPlayer_(FirstPlayer) {
+  //todo: deal cards
 }
 
 Game::~Game(){

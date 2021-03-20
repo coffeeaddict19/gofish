@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 
-Context NewContext(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck])
+Context NewContext(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck], ePlayers FirstPlayer)
 __attribute__ ((visibility ("default") ));
 
 Logger NewConsoleLogger()

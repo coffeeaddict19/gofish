@@ -30,7 +30,7 @@ void SetLoggerToContext(Context* PtrToContext, Logger* PtrToLogger);
 PlayerOutput Play(Context* PtrToContext, PlayerInput* Inputs);
 CardCollection GetPlayersCopyOfCards(Context* PtrToContext, ePlayers Player);
 
-Context NewContext(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck]){
+Context NewContext(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck], ePlayers FirstPlayer){
   Context Context;
   Context.Destroy = DestroyContext;
   Context.Logger_ = nullptr;
@@ -39,7 +39,8 @@ Context NewContext(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck]){
   Context.SetLogger = SetLoggerToContext;
   Context.GamePtr_ = new(std::nothrow) Game(
     Context.Logger_,
-    OrderOfCardsInDeck
+    OrderOfCardsInDeck,
+    FirstPlayer
   );
   return Context;
 }
