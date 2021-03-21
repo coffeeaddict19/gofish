@@ -7,10 +7,10 @@
 extern "C" {
 #endif
 
-Context NewContext(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck], ePlayers FirstPlayer)
+struct Context NewContext(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck], enum ePlayers FirstPlayer)
 __attribute__ ((visibility ("default") ));
 
-Logger NewConsoleLogger()
+struct Logger NewConsoleLogger()
 __attribute__ ((visibility ("default") ));
 
 #ifdef __cplusplus

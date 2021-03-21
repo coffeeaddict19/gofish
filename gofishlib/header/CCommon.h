@@ -1,6 +1,8 @@
 #ifndef CCOMMON_H
 #define CCOMMON_H
 
+#include <stdbool.h>
+
 enum eErrors{
     NoError = 0,
     AllocationFail = 1,
@@ -59,45 +61,51 @@ struct CardWithInitFlag{
 
 typedef void* CardCollectionVoidPtr;
 
+struct CardCollection;
+
 struct CardCollection{
   CardCollectionVoidPtr CardCollection_;
-  void (*Destroy)(CardCollection* PtrToCardCollection);
-  unsigned char (*Size)(CardCollection* PtrToCardCollection);
-  CardWithInitFlag (*At)(CardCollection* PtrToCardCollection, unsigned char Index);
-  void (*Push)(CardCollection* PtrToCardCollection, Card C);
+  void (*Destroy)(struct CardCollection* PtrToCardCollection);
+  unsigned char (*Size)(struct CardCollection* PtrToCardCollection);
+  struct CardWithInitFlag (*At)(struct CardCollection* PtrToCardCollection, unsigned char Index);
+  void (*Push)(struct CardCollection* PtrToCardCollection, Card C);
 };
 
 typedef void* GamePtr;
 
 struct PlayerInput{
   Card RequestedCard_;
-  ePlayers ThisPlayer_;
-  ePlayers PlayerToRequestCardOf_;
+  enum ePlayers ThisPlayer_;
+  enum ePlayers PlayerToRequestCardOf_;
 };
 
 struct PlayerOutput{
-  eTurnResult TurnResult_;
-  eErrors Error_;
-  ePlayers NextPlayer_;
-  ePlayers PlayerGoFishCardsWereReceivedFrom_;
-  CardCollection CopyOfGoFishCardsReceived_;
-  CardCollection CopyOfCards_;
+  enum eTurnResult TurnResult_;
+  enum eErrors Error_;
+  enum ePlayers NextPlayer_;
+  enum ePlayers PlayerGoFishCardsWereReceivedFrom_;
+  struct CardCollection CopyOfGoFishCardsReceived_;
+  struct CardCollection CopyOfCards_;
 };
 
 typedef void* LoggerPtr;
 
+struct Logger;
+
 struct Logger{
     LoggerPtr LoggerPtr_;
-    void (*Destroy)(Logger* PtrToLogger);
+    void (*Destroy)(struct Logger* PtrToLogger);
 };
+
+struct Context;
 
 struct Context{
   GamePtr GamePtr_;
-  Logger* Logger_;
-  void (*SetLogger)(Context* PtrToContext, Logger* PtrToLogger);
-  void (*Destroy)(Context* PtrToContext);
-  PlayerOutput (*Play)(Context* PtrToContext, PlayerInput* Inputs);
-  CardCollection (*GetPlayersCopyOfCards)(Context* PtrToContext, ePlayers Player);
+  struct Logger* Logger_;
+  void (*SetLogger)(struct Context* PtrToContext, struct Logger* PtrToLogger);
+  void (*Destroy)(struct Context* PtrToContext);
+  struct PlayerOutput (*Play)(struct Context* PtrToContext, struct PlayerInput* Inputs);
+  struct CardCollection (*GetPlayersCopyOfCards)(struct Context* PtrToContext, enum ePlayers Player);
 };
 
 #endif
