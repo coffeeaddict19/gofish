@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <assert.h>
+#include <new>
 
 Player::Player(
   Logger* Logger,
@@ -11,7 +12,7 @@ Player::Player(
   Deck_ = Deck;
   Books_ = Books;
   PlayerName_ = PlayerName;
-  Pool_ = std::make_unique<CardPool>();
+  Pool_ = std::unique_ptr<CardPool>(new(std::nothrow) CardPool());
 }
 
 Player::Player(Player&& MovedPlayer){

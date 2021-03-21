@@ -2,7 +2,7 @@
 
 Deck::Deck(Logger* Logger, Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck]) :
 Logger_(Logger){
-  Pool_ = std::make_unique<CardPool>();
+  Pool_ = std::unique_ptr<CardPool>(new(std::nothrow) CardPool());
   size_t DeckArrayIndex = 0;
   for(auto& DeckArrayPosition : OrderOfCardsInDeck_){
     DeckArrayPosition = *OrderOfCardsInDeck[DeckArrayIndex];

@@ -8,3 +8,5 @@ Deck.cpp
 Books.cpp
 CardPool.cpp
 )
+
+set_property(TARGET gofishlib PROPERTY CXX_STANDARD 11)
