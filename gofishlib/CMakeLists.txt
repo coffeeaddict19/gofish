@@ -15,3 +15,5 @@ target_include_directories(
   gofishlib PRIVATE
   ${PROJECT_SOURCE_DIR}/gofishlib/header
 )
+
+set_target_properties(gofishlib PROPERTIES CXX_VISIBILITY_PRESET hidden)
