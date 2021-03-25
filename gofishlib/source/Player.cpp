@@ -22,6 +22,9 @@ Player::Player(Player&& MovedPlayer){
   this->PlayerName_ = MovedPlayer.PlayerName_;
 }
 
+Player::~Player(){
+}
+
 CardCollection Player::GetCopyOfCards(){
   CardCollection Collection = NewCardCollection();
   if(Collection.CardCollection_ != nullptr){

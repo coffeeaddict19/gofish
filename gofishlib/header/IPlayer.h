@@ -7,7 +7,7 @@
 
 class IPlayer{
 public:
-  virtual ~IPlayer();
+  virtual ~IPlayer() = default;
   virtual CardCollection GetCopyOfCards() = 0;
   virtual bool TakeCardFromDeck() = 0;
   virtual std::stack<CardPtrType> GiveCardsToOtherPlayer(Card Card) = 0;

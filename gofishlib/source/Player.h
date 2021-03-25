@@ -15,6 +15,7 @@ public:
     std::shared_ptr<IBooks> Books,
     ePlayers PlayerName
   );
+  ~Player();
   Player(Player&& MovedPlayer);
   CardCollection GetCopyOfCards();
   bool TakeCardFromDeck();

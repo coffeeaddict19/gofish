@@ -68,9 +68,9 @@ PlayerOutput Play(Context* PtrToContext, PlayerInput* Inputs){
 }
 
 CardCollection GetPlayersCopyOfCards(Context* PtrToContext, ePlayers Player){
-  if(nullptr == PtrToContext){
+  if(nullptr == PtrToContext || nullptr == PtrToContext->GamePtr_){
     return NewCardCollection();
   }
 
-  return reinterpret_cast<Game*>(PtrToContext)->GetPlayersCopyOfCards(Player);
+  return reinterpret_cast<Game*>(PtrToContext->GamePtr_)->GetPlayersCopyOfCards(Player);
 }

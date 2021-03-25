@@ -18,9 +18,11 @@ enum eTurnResult{
   GoFishReturnedNoCardsYourTurnIsOver = 3
 };
 
-const unsigned char kNumberOfPlayers = 5;
-const unsigned char kNumberOfCardsInDeck = 52;
-const unsigned char kNumberOfCardsInBook = 4;
+#define kNumberOfPlayers 5
+#define kNumberOfCardsInDeck 52
+#define kNumberOfCardsInBook 4
+#define kNumberOfCardsToDealPerPlayer 5
+
 enum ePlayers{
   John = 0,
   Dan = 1,
