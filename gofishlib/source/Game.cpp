@@ -20,7 +20,22 @@ Players_{{
   Player(Logger, Deck_, Books_, Nicholas)
 }},
 FirstPlayer_(FirstPlayer) {
-  //todo: deal cards
+  ePlayers CurrentPlayer = FirstPlayer;
+  for(unsigned char PlayerCounter=0; PlayerCounter<kNumberOfPlayers; PlayerCounter++){
+    //draw out cards for this player
+    for(unsigned char DrawIndex=0;DrawIndex<kNumberOfCardsToDealPerPlayer;DrawIndex++){
+      assert(Players_.at(static_cast<unsigned char>(CurrentPlayer)).TakeCardFromDeck());
+      //std::cout<<"CurrentPlayer="<<CurrentPlayer<<";DrawIndex="<<(int)DrawIndex<<std::endl;
+    }
+    //advance to next player
+    unsigned char CurrentPlayerIndex = static_cast<unsigned char>(CurrentPlayer);
+    if(CurrentPlayerIndex + 1 > kNumberOfPlayers){
+      CurrentPlayer = static_cast<ePlayers>(0);
+    }else{
+      CurrentPlayerIndex+=1;
+      CurrentPlayer = static_cast<ePlayers>(CurrentPlayerIndex);
+    }
+  }
 }
 
 Game::~Game(){

@@ -6,7 +6,7 @@
 
 class CardPool{
 public:
-  CardPool();
+  CardPool(bool Populate);
   ~CardPool();
   bool IsFull();
   bool IsEmpty();
@@ -14,6 +14,7 @@ public:
   CardPtrType Remove(Card CardToRemove);
   void MakeCopy(CardCollectionInternalType* PtrToCollectionToPushTo) const;
 private:
+  void PopulateFullPool();
   PoolOfCardsType Pool_;
 };
 

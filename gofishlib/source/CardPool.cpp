@@ -1,8 +1,11 @@
 #include "CardPool.h"
 #include <assert.h>
+#include <new>
 
-CardPool::CardPool(){
-
+CardPool::CardPool(bool Populate){
+  if(Populate){
+    PopulateFullPool();
+  }
 }
 
 CardPool::~CardPool(){
@@ -56,5 +59,13 @@ void CardPool::MakeCopy(CardCollectionInternalType* PtrToCollectionToPushTo) con
         PtrToCollectionToPushTo->push_back(*PtrInPool.get());
       }
     }
+  }
+}
+
+void CardPool::PopulateFullPool(){
+  Card CurrentCard = 0;
+  for(auto& ThisCard : Pool_){
+    ThisCard = std::unique_ptr<Card>(new(std::nothrow)Card(CurrentCard));
+    CurrentCard=CurrentCard+1;
   }
 }

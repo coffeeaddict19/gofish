@@ -69,7 +69,7 @@ struct CardCollection{
   CardCollectionVoidPtr CardCollection_;
   void (*Destroy)(struct CardCollection* PtrToCardCollection);
   unsigned char (*Size)(struct CardCollection* PtrToCardCollection);
-  struct CardWithInitFlag (*At)(struct CardCollection* PtrToCardCollection, unsigned char Index);
+  Card (*At)(struct CardCollection* PtrToCardCollection, unsigned char Index);
   void (*Push)(struct CardCollection* PtrToCardCollection, Card C);
 };
 

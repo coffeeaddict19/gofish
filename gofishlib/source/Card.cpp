@@ -4,7 +4,7 @@
 #include <new>
 
 void Destroy(CardCollection* PtrToCardCollection);
-CardWithInitFlag At(CardCollection* PtrToCardCollection, unsigned char Index);
+Card At(CardCollection* PtrToCardCollection, unsigned char Index);
 unsigned char Size(CardCollection* PtrToCardCollection);
 void Push(CardCollection* PtrToCardCollection, Card C);
 
@@ -37,9 +37,8 @@ void Push(CardCollection* PtrToCardCollection, Card C){
   PtrToCards->push_back(C);
 }
 
-CardWithInitFlag At(CardCollection* PtrToCardCollection, unsigned char Index){
-  CardWithInitFlag Result{0};
-  Result.Initialized_ = false;
+Card At(CardCollection* PtrToCardCollection, unsigned char Index){
+  Card Result = 0;
   if(nullptr == PtrToCardCollection) return Result;
   if(nullptr == PtrToCardCollection->CardCollection_) return Result;
   auto PtrToCards = reinterpret_cast<CardCollectionInternalType*>(
@@ -48,9 +47,7 @@ CardWithInitFlag At(CardCollection* PtrToCardCollection, unsigned char Index){
   if(!(Index < PtrToCards->size())){
     return Result;
   }
-  Result.Initialized_ = true;
-  Result.Card_ = PtrToCards->at(Index);
-  return Result;
+  return PtrToCards->at(Index);
 }
 
 unsigned char Size(CardCollection* PtrToCardCollection){

@@ -12,7 +12,7 @@ Player::Player(
   Deck_ = Deck;
   Books_ = Books;
   PlayerName_ = PlayerName;
-  Pool_ = std::unique_ptr<CardPool>(new(std::nothrow) CardPool());
+  Pool_ = std::unique_ptr<CardPool>(new(std::nothrow) CardPool(false));
 }
 
 Player::Player(Player&& MovedPlayer){
