@@ -25,11 +25,10 @@ FirstPlayer_(FirstPlayer) {
     //draw out cards for this player
     for(unsigned char DrawIndex=0;DrawIndex<kNumberOfCardsToDealPerPlayer;DrawIndex++){
       assert(Players_.at(static_cast<unsigned char>(CurrentPlayer)).TakeCardFromDeck());
-      //std::cout<<"CurrentPlayer="<<CurrentPlayer<<";DrawIndex="<<(int)DrawIndex<<std::endl;
     }
     //advance to next player
     unsigned char CurrentPlayerIndex = static_cast<unsigned char>(CurrentPlayer);
-    if(CurrentPlayerIndex + 1 > kNumberOfPlayers){
+    if(CurrentPlayerIndex + 1 >= kNumberOfPlayers){
       CurrentPlayer = static_cast<ePlayers>(0);
     }else{
       CurrentPlayerIndex+=1;
