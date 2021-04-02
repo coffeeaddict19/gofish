@@ -1,7 +1,7 @@
 #include "Books.h"
 #include <assert.h>
 
-Books::Books(Logger* Logger) : Logger_(Logger){
+Books::Books(){
   Pool_ = std::unique_ptr<CardPool>(new(std::nothrow) CardPool(false));
   for(auto& Count: NumberOfBooksPerPlayer_){
     Count = 0;

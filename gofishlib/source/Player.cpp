@@ -3,12 +3,10 @@
 #include <new>
 
 Player::Player(
-  Logger* Logger,
   std::shared_ptr<IDeck> Deck,
   std::shared_ptr<IBooks> Books,
   ePlayers PlayerName
 ){
-  Logger_ = Logger;
   Deck_ = Deck;
   Books_ = Books;
   PlayerName_ = PlayerName;
@@ -16,7 +14,6 @@ Player::Player(
 }
 
 Player::Player(Player&& MovedPlayer){
-  this->Logger_ = MovedPlayer.Logger_;
   this->Deck_ = MovedPlayer.Deck_;
   this->Books_ = MovedPlayer.Books_;
   this->PlayerName_ = MovedPlayer.PlayerName_;

@@ -9,7 +9,7 @@
 
 class Books : public IBooks{
 public:
-  Books(Logger* Logger);
+  Books();
   void TransferBook(std::array<CardPtrType, kNumberOfCardsInBook> Book, ePlayers OwningPlayer);
   unsigned char GetNumberOfBooksPlayerHas(ePlayers Player);
   bool AllBooksAreFilled();
@@ -17,7 +17,6 @@ public:
 private:
   void IncreasePlayerBookCount(ePlayers Player);
   std::array<unsigned char, kNumberOfPlayers> NumberOfBooksPerPlayer_;
-  Logger* Logger_;
   std::unique_ptr<CardPool> Pool_;
 };
 

@@ -10,7 +10,6 @@
 class Player : public IPlayer{
 public:
   Player(
-    Logger* Logger,
     std::shared_ptr<IDeck> Deck,
     std::shared_ptr<IBooks> Books,
     ePlayers PlayerName
@@ -21,7 +20,6 @@ public:
   bool TakeCardFromDeck();
   std::stack<CardPtrType> GiveCardsToOtherPlayer(Card Card);
 private:
-  Logger* Logger_;
   std::shared_ptr<IDeck> Deck_;
   std::shared_ptr<IBooks> Books_;
   ePlayers PlayerName_;

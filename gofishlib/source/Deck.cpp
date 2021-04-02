@@ -1,7 +1,6 @@
 #include "Deck.h"
 
-Deck::Deck(Logger* Logger, Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck]) :
-Logger_(Logger){
+Deck::Deck(Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck]){
   Pool_ = std::unique_ptr<CardPool>(new(std::nothrow) CardPool(true));
   size_t DeckArrayIndex = 0;
   for(auto& DeckArrayPosition : OrderOfCardsInDeck_){

@@ -90,21 +90,10 @@ struct PlayerOutput{
   struct CardCollection CopyOfCards_;
 };
 
-typedef void* LoggerPtr;
-
-struct Logger;
-
-struct Logger{
-    LoggerPtr LoggerPtr_;
-    void (*Destroy)(struct Logger* PtrToLogger);
-};
-
 struct Context;
 
 struct Context{
   GamePtr GamePtr_;
-  struct Logger* Logger_;
-  void (*SetLogger)(struct Context* PtrToContext, struct Logger* PtrToLogger);
   void (*Destroy)(struct Context* PtrToContext);
   struct PlayerOutput (*Play)(struct Context* PtrToContext, struct PlayerInput* Inputs);
   struct CardCollection (*GetPlayersCopyOfCards)(struct Context* PtrToContext, enum ePlayers Player);

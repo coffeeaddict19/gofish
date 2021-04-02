@@ -11,7 +11,6 @@
 class Game{
 public:
   Game(
-    Logger* Logger,
     Card (*OrderOfCardsInDeck)[kNumberOfCardsInDeck],
     ePlayers FirstPlayer
   );
@@ -23,7 +22,6 @@ private:
   std::shared_ptr<IBooks> Books_;
   std::array<Player, kNumberOfPlayers> Players_;
   ePlayers FirstPlayer_;
-  Logger* Logger_;
 };
 
 #endif
