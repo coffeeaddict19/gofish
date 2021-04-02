@@ -1,5 +1,6 @@
 #include "ctest.h"
 #include "ExternalSymbols.h"
+#include <stdlib.h>
 
 /*
           ACE   2   3   4   5   6   7   8   9   10   J   Q   K
@@ -9,15 +10,36 @@ Hearts    2     6   10  14  18  22  26  30  34  38   42  46  50
 Spades    3     7   11  15  19  23  27  31  35  39   43  47  51
 */
 
-CTEST(DealTests, DealDeckNotShuffledFirstPlayerStart) {
-  Card CardsInDeck[52] = {
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-    10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-    20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-    30, 31, 32, 33, 34, 25, 36, 37, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 59, 51
+CTEST_DATA(DeckOfCards) {
+  Card (*NotShuffled_)[kNumberOfCardsInDeck];
+  Card (*Shuffled_)[kNumberOfCardsInDeck];
+};
+
+CTEST_SETUP(DeckOfCards) {
+  data->NotShuffled_ = malloc(sizeof(*data->NotShuffled_));
+  for(int Index=0; Index<kNumberOfCardsInDeck; Index++){
+    (*data->NotShuffled_)[Index] = (Card)Index;
+  }
+  Card Shuffled[kNumberOfCardsInDeck] = {
+    7, 1, 4, 3, 23, 5, 6, 0, 8, 37,
+    20, 11, 12, 13, 34, 15, 16, 17, 18, 41,
+    10, 51, 22, 2, 24, 25, 26, 27, 28, 29,
+    30, 31, 32, 33, 14, 25, 36, 9, 39, 40,
+    19, 42, 43, 44, 45, 46, 47, 48, 59, 21
   };
-  struct Context GameContext = NewContext(&CardsInDeck, John);
+  data->Shuffled_ = malloc(sizeof(*data->Shuffled_));
+  for(int Index=0; Index<kNumberOfCardsInDeck; Index++){
+    (*data->Shuffled_)[Index] = Shuffled[Index];
+  }
+}
+
+CTEST_TEARDOWN(DeckOfCards) {
+  free(data->NotShuffled_);
+  free(data->Shuffled_);
+}
+
+CTEST2(DeckOfCards, DealDeckNotShuffledFirstPlayerStart) {
+  struct Context GameContext = NewContext(data->NotShuffled_, John);
   struct CardCollection JohnCards = GameContext.GetPlayersCopyOfCards(&GameContext, John);
   struct CardCollection DanCards = GameContext.GetPlayersCopyOfCards(&GameContext, Dan);
   struct CardCollection JudyCards = GameContext.GetPlayersCopyOfCards(&GameContext, Judy);
@@ -61,15 +83,8 @@ CTEST(DealTests, DealDeckNotShuffledFirstPlayerStart) {
   GameContext.Destroy(&GameContext);
 }
 
-CTEST(DealTests, DealDeckNotShuffledLastPlayerStart) {
-  Card CardsInDeck[52] = {
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-    10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-    20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-    30, 31, 32, 33, 34, 25, 36, 37, 39, 40,
-    41, 42, 43, 44, 45, 46, 47, 48, 59, 51
-  };
-  struct Context GameContext = NewContext(&CardsInDeck, Nicholas);
+CTEST2(DeckOfCards, DealDeckNotShuffledLastPlayerStart) {
+  struct Context GameContext = NewContext(data->NotShuffled_, Nicholas);
   struct CardCollection JohnCards = GameContext.GetPlayersCopyOfCards(&GameContext, John);
   struct CardCollection DanCards = GameContext.GetPlayersCopyOfCards(&GameContext, Dan);
   struct CardCollection JudyCards = GameContext.GetPlayersCopyOfCards(&GameContext, Judy);
@@ -113,15 +128,8 @@ CTEST(DealTests, DealDeckNotShuffledLastPlayerStart) {
   GameContext.Destroy(&GameContext);
 }
 
-CTEST(DealTests, DealDeckShuffledFirstPlayerStart) {
-  Card CardsInDeck[52] = {
-    7, 1, 4, 3, 23, 5, 6, 0, 8, 37,
-    20, 11, 12, 13, 34, 15, 16, 17, 18, 41,
-    10, 51, 22, 2, 24, 25, 26, 27, 28, 29,
-    30, 31, 32, 33, 14, 25, 36, 9, 39, 40,
-    19, 42, 43, 44, 45, 46, 47, 48, 59, 21
-  };
-  struct Context GameContext = NewContext(&CardsInDeck, John);
+CTEST2(DeckOfCards, DealDeckShuffledFirstPlayerStart) {
+  struct Context GameContext = NewContext(data->Shuffled_, John);
   struct CardCollection JohnCards = GameContext.GetPlayersCopyOfCards(&GameContext, John);
   struct CardCollection DanCards = GameContext.GetPlayersCopyOfCards(&GameContext, Dan);
   struct CardCollection JudyCards = GameContext.GetPlayersCopyOfCards(&GameContext, Judy);
@@ -165,15 +173,8 @@ CTEST(DealTests, DealDeckShuffledFirstPlayerStart) {
   GameContext.Destroy(&GameContext);
 }
 
-CTEST(DealTests, DealDeckShuffledLastPlayerStart) {
-  Card CardsInDeck[52] = {
-    7, 1, 4, 3, 23, 5, 6, 0, 8, 37,
-    20, 11, 12, 13, 34, 15, 16, 17, 18, 41,
-    10, 51, 22, 2, 24, 25, 26, 27, 28, 29,
-    30, 31, 32, 33, 14, 25, 36, 9, 39, 40,
-    19, 42, 43, 44, 45, 46, 47, 48, 59, 21
-  };
-  struct Context GameContext = NewContext(&CardsInDeck, Nicholas);
+CTEST2(DeckOfCards, DealDeckShuffledLastPlayerStart) {
+  struct Context GameContext = NewContext(data->Shuffled_, Nicholas);
   struct CardCollection JohnCards = GameContext.GetPlayersCopyOfCards(&GameContext, John);
   struct CardCollection DanCards = GameContext.GetPlayersCopyOfCards(&GameContext, Dan);
   struct CardCollection JudyCards = GameContext.GetPlayersCopyOfCards(&GameContext, Judy);
@@ -214,5 +215,15 @@ CTEST(DealTests, DealDeckShuffledLastPlayerStart) {
   JudyCards.Destroy(&JudyCards);
   DanielleCards.Destroy(&DanielleCards);
   NicholasCards.Destroy(&NicholasCards);
+  GameContext.Destroy(&GameContext);
+}
+
+CTEST2(DeckOfCards, SinglePlayWithUnshuffledDeck) {
+  struct Context GameContext = NewContext(data->NotShuffled_, John);
+  struct PlayerInput AskForKingOfSpades;
+  AskForKingOfSpades.RequestedCard_ = 51;
+  AskForKingOfSpades.ThisPlayer_ = John;
+  AskForKingOfSpades.PlayerToRequestCardOf_ = Dan;
+  struct PlayerOutput Output = GameContext.Play(&GameContext, &AskForKingOfSpades);
   GameContext.Destroy(&GameContext);
 }

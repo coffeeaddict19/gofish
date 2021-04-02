@@ -2,7 +2,7 @@ enable_testing ()
 
 include (CTest)
 
-add_executable(gofishtest memorytests.c dealtests.c main.c)
+add_executable(gofishtest memorytests.c playtests.c main.c)
 
 set_property(TARGET gofishtest PROPERTY C_STANDARD 11)
 
