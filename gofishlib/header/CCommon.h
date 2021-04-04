@@ -155,6 +155,7 @@ struct Context;
 
 struct Context{
   GamePtr GamePtr_;
+  enum eErrors Errors_;
   void (*Destroy)(struct Context* PtrToContext);
   struct PlayerOutput (*Play)(struct Context* PtrToContext, struct PlayerInput* Inputs);
   struct CardCollection (*GetPlayersCopyOfCards)(struct Context* PtrToContext, enum ePlayers Player);
